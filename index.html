@@ -11,6 +11,7 @@
     --accent-color: #00ff88;
     --text-color: #ffffff;
     --animation-delay-step: 0.3s;
+    --transition-time: 0.5s;
 }
 
 /* Base styles */
@@ -19,7 +20,6 @@ body {
     color: var(--text-color);
     font-family: 'Courier New', monospace;
     margin: 0;
-    padding-top: 120px;
 }
 
 /* Layout components */
@@ -99,10 +99,63 @@ body {
     text-decoration: none;
     text-align: center;
 }
+/* Add to your CSS */
+/* Replace existing no-animations rule with this */
+body.no-animations * {
+    animation: none !important;
+    transition: none !important;
+}
+
+body.no-animations .fade-in {
+    opacity: 1 !important;
+    transform: none !important;
+}
 
 .social-button:hover {
     background-color: var(--accent-color);
     color: var(--primary-color);
+}
+/* Settings specific styles */
+.settings-option {
+    display: flex;
+    align-items: center;
+    margin: 15px 0;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 5px;
+}
+
+.settings-option label {
+    flex: 1;
+    margin-right: 15px;
+}
+
+.settings-option input[type="range"] {
+    width: 200px;
+}
+
+.settings-option input[type="checkbox"] {
+    transform: scale(1.5);
+}
+.volume-popup {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    opacity: 0;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+    white-space: nowrap;
+    transform: translateY(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.volume-popup.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* Animations */
@@ -121,6 +174,9 @@ body {
     animation: fadeInLeft 0.8s forwards;
     margin: 15px 0;
     font-size: 1.2em;
+}
+.tab-button, .social-button, .dimensional-inner, .download-button {
+    transition: all 0.5s ease;
 }
 
 /* Sequential fade-in delays */
@@ -158,26 +214,102 @@ body {
 
 /* Responsive design */
 @media (max-width: 768px) {
-    .gallery-container {
+    body {
+        padding-top: 80px; /* Reduced top padding for mobile */
+    }
+
+    .top-bar {
         flex-direction: column;
+        padding: 10px;
+        position: fixed;
     }
-    
-    .dimensional-inner {
-        transform: none;
-    }
-    .dimensional-box {
-        position: static;
-        width: 100%;
-        max-width: 100%;
-    }
-    
+
     .profile-section {
-        padding-right: 15px;
-        margin-right: 15px;
+        margin-right: 0;
+        padding-right: 0;
+        justify-content: center;
+        width: 100%;
     }
-    .fade-text {
+
+    .tabs {
+        margin: 10px 0 0 0;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .tab-button {
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+
+    .dimensional-box {
+        margin-top: 20px;
+    }
+
+    .gallery-container {
+        gap: 20px;
+    }
+
+    .button-container {
+        grid-template-columns: 1fr;
+    }
+
+    footer {
+        position: relative; /* Change footer to relative on mobile */
+        margin-top: 30px;
+    }
+
+    .header-image {
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px; /* Base font size adjustment */
+        padding-top: 120px
+    }
+
+    .tab-content {
+        padding: 15px;
+    }
+
+    .settings-option input[type="range"] {
+        width: 100%;
+    }
+
+    .download-button {
+        padding: 12px 20px;
+        font-size: 0.9em;
+    }
+
+    .dimensional-inner {
+        transform: none !important; /* Remove 3D effects on mobile */
+    }
+
+    .news-item h3 {
+        font-size: 1.1em;
+    }
+
+    .top-bar {
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* Add this to existing media query for dimensional-box */
+@media (max-width: 768px) {
+    .dimensional-box {
+        min-width: 100%;
         max-width: 100%;
     }
+}
+
+/* Add this to make images responsive */
+img {
+    max-width: 100%;
+    height: auto;
 }
 
 /* Utilities */
@@ -272,16 +404,16 @@ footer {
         </div>
         
         <nav class="tabs">
-            <button class="tab-button active" onclick="showTab('contact')">Home</button>
+            <button class="tab-button active" onclick="showTab('home')">Home</button>
             <button class="tab-button" onclick="showTab('news')">News</button>
             <button class="tab-button" onclick="showTab('about')">About</button>
-            <button class="tab-button" onclick="showTab('eagler')">Minecraft</button>
-            <button class="tab-button" onclick="showTab('gallery')">Keygen</button>
+            <button class="tab-button" onclick="showTab('projects')">Projects</button>
+            <button class="tab-button" onclick="showTab('settings')">Settings</button>
         </nav>
     </div>
 
     <!-- Contact Tab -->
-    <div id="contact" class="tab-content active">
+    <div id="home" class="tab-content active">
         <h2>Home</h2>
         <div class="button-container">
             <p>The website for Ethereal, which deals with different types of services. <br><br> Note: The website plays music when clicking anything. <br><br> ETHEREAL GROUP </p>
@@ -292,14 +424,15 @@ footer {
     <div id="news" class="tab-content">
         <h2>Latest Updates</h2>
         <div class="news-item">
-            <h3>🚀 New Site Design Launched</h3>
-            <p>Complete overhaul of this website, including new features and downloads</p>
+            <h3>🚀 Website Design</h3>
+            <p>Made website responsive for mobile</p>
+            <p>Added visual for volume slider</p>
         </div>
         <div class="news-item">
             <h3>🔧 New features</h3>
-            <p>Added music in the background</p>
-            <p>Added support for Minecraft in the browser</p>
-            <p>Free support?</p>
+            <p>Added RGB setting</p>
+            <p>Added animation disabler in settings</p>
+            <p>Added a music volume slider</p>
         </div>
     </div>
 
@@ -377,8 +510,9 @@ footer {
         </div>
     </div>
 
-    <div id="secretTab" class="tab-content">
+    <div id="contact" class="tab-content">
         <div class="button-container">
+            <h1>You found the original creator behind this site!</h1>
             <a href="https://www.youtube.com/channel/UCHrfNyVLl0xY_pNtSs_5Afg" target="_blank" class="social-button">YouTube</a>
             <a href="https://discord.gg/qRAUPYa5gV" target="_blank" class="social-button">Discord</a>
             <a href="https://github.com/BerBerOnGithub" target="_blank" class="social-button">GitHub</a>
@@ -389,29 +523,181 @@ footer {
             <a href="https://csgoroll.com/r/BERCELBABCA" target="_blank" class="social-button">CSGORoll</a>
         </div>
     </div>
+    <div id="projects" class="tab-content">
+        <h2>Projects</h2>
+        <div class="button-container">
+            <button class="social-button" onclick="showTab('eagler')">Minecraft Mirrors</button>
+            <button class="social-button" onclick="showTab('gallery')">Keygen</button>
+        </div>
+    </div>
 
+<!-- Add this new tab content section after the Gallery tab -->
+<div id="settings" class="tab-content">
+    <h2>Settings</h2>
+    <div class="settings-option">
+        <label for="musicVolume">Music Volume:</label>
+        <input type="range" id="musicVolume" min="0" max="1" step="0.1" value="0.2">
+    </div>
+    <div class="settings-option">
+        <label for="animations">Enable Animations:</label>
+        <input type="checkbox" id="animations" checked>
+    </div>
+    <div class="settings-option">
+        <label for="rgbMode">RGB Color Cycle:</label>
+        <input type="checkbox" id="rgbMode">
+    </div>
+</div>
     <footer>
         <h6>Copyright © 2025 ETHEREAL. All rights reserved.</h6>
     </footer>
 
     <script>
-        function showTab(tabId) {
-            // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
+// Updated showTab function
+function showTab(tabId, event) {
+    // Hide all tabs
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Remove active class from buttons
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.classList.remove('active');
+    });
+    
+    // Show target tab
+    document.getElementById(tabId).classList.add('active');
+    
+    // Add active class to clicked button
+    if (event) {
+        event.currentTarget.classList.add('active');
+    }
+}
+// Add these to the existing JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+    const audio = document.getElementById('bgMusic');
+    audio.volume = 0.2;
+    const volumePopup = document.getElementById('volumePopup');
+    let hideTimeout;
 
-            // Remove active class from all buttons
-            document.querySelectorAll('.tab-button').forEach(button => {
-                button.classList.remove('active');
-            });
+    // Enable audio on first interaction
+    const enableAudio = () => {
+        audio.play().catch(error => {
+            console.log('Audio playback failed:', error);
+        });
+        document.body.removeEventListener('click', enableAudio);
+    };
+    document.body.addEventListener('click', enableAudio, { once: true });
 
-            // Show selected tab content
-            document.getElementById(tabId).classList.add('active');
+    // Volume control
+    const volumeSlider = document.getElementById('musicVolume');
+    if(volumeSlider) {
+        volumeSlider.min = 0;
+        volumeSlider.max = 1;
+        volumeSlider.step = 0.01;
+        volumeSlider.value = audio.volume;
+
+        const updatePopupPosition = (value) => {
+            const sliderRect = volumeSlider.getBoundingClientRect();
+            const thumbPosition = (value - volumeSlider.min) / 
+                                (volumeSlider.max - volumeSlider.min) * 
+                                sliderRect.width;
             
-            // Add active class to clicked button
-            event.currentTarget.classList.add('active');
-        }
+            // Position popup centered under the thumb
+            const popupWidth = volumePopup.offsetWidth;
+            volumePopup.style.left = `${sliderRect.left + thumbPosition - (popupWidth / 2)}px`;
+            volumePopup.style.bottom = `${window.innerHeight - sliderRect.top + 15}px`;
+        };
+
+        const updateVolumePopup = (value) => {
+            const percentage = Math.round(value * 100);
+            volumePopup.textContent = `${percentage}%`;
+            volumePopup.classList.add('visible');
+            clearTimeout(hideTimeout);
+            
+            // Update position after text content changes
+            requestAnimationFrame(() => {
+                updatePopupPosition(value);
+            });
+        };
+
+        volumeSlider.addEventListener('input', (e) => {
+            const value = parseFloat(e.target.value);
+            audio.volume = value;
+            updateVolumePopup(value);
+        });
+
+        // Update position while dragging
+        volumeSlider.addEventListener('mousemove', (e) => {
+            if(e.buttons === 1) { // Only when left mouse button is held
+                updatePopupPosition(parseFloat(volumeSlider.value));
+            }
+        });
+
+        volumeSlider.addEventListener('mousedown', () => {
+            volumePopup.classList.add('visible');
+        });
+
+        volumeSlider.addEventListener('mouseup', () => {
+            hideTimeout = setTimeout(() => {
+                volumePopup.classList.remove('visible');
+            }, 1000);
+        });
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            updatePopupPosition(parseFloat(volumeSlider.value));
+        });
+
+        // Initial position
+        updateVolumePopup(audio.volume);
+        setTimeout(() => {
+            volumePopup.classList.remove('visible');
+        }, 1000);
+    }
+});
+
+    // Animations toggle
+// Updated animations toggle handler
+const animationsToggle = document.getElementById('animations');
+animationsToggle.addEventListener('change', function() {
+    document.body.classList.toggle('no-animations', !this.checked);
+});
+// RGB Color Cycling Feature (non-persistent)
+const rgbCheckbox = document.getElementById('rgbMode');
+let rgbEnabled = false;
+let hue = 0;
+let animationFrameId = null;
+const defaultAccent = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
+
+function updateAccentColor() {
+    hue = (hue + 0.5) % 360;
+    document.documentElement.style.setProperty(
+        '--accent-color', 
+        `hsl(${hue}, 100%, 50%)`
+    );
+    if (rgbEnabled) {
+        animationFrameId = requestAnimationFrame(updateAccentColor);
+    }
+}
+
+// Changed event handler (removed localStorage)
+rgbCheckbox.addEventListener('change', function() {
+    rgbEnabled = this.checked;
+    if (rgbEnabled) {
+        hue = 0;
+        updateAccentColor();
+    } else {
+        cancelAnimationFrame(animationFrameId);
+        document.documentElement.style.setProperty(
+            '--accent-color', 
+            defaultAccent
+        );
+    }
+    // Removed localStorage.setItem
+});
+
+// Set initial state (always disabled)
+rgbCheckbox.checked = false; // Force unchecked on page load
     </script>
  <audio id="bgMusic" loop style="display: none;">
     <source src="images/ethereal.mp3" type="audio/mpeg">
@@ -430,19 +716,54 @@ footer {
         document.getElementById(tabId).classList.add('active');
         event.currentTarget.classList.add('active');
     }
+// Easter Egg functionality
+const EGG_WORD = 'contacting';
+let eggBuffer = '';
+let eggTriggered = false;
 
-    // Music handling
-    document.addEventListener('DOMContentLoaded', function() {
-        const audio = document.getElementById('bgMusic');
-        audio.volume = 0.2;
+document.addEventListener('keydown', (e) => {
+    if (eggTriggered) return;
+    
+    // Only accept letter keys
+    if (e.key.length === 1 && e.key.match(/[a-z]/i)) {
+        // Maintain buffer at exact length of target word
+        eggBuffer = (eggBuffer + e.key.toLowerCase()).slice(-EGG_WORD.length);
         
-        // Enable audio on user interaction
-        document.body.addEventListener('click', function() {
-            audio.play().catch(error => {
-                console.log('Audio playback failed:', error);
-            });
-        }, { once: true });
-    });
+        // Check for exact match
+        if (eggBuffer === EGG_WORD) {
+            showTab('contact'); // Redirect to secret tab
+            eggTriggered = true;
+        }
+    }
+});
 </script>
+<script>
+    // Top bar height management
+    function updateBodyPadding() {
+        const topBar = document.querySelector('.top-bar');
+        if (topBar) {
+            const height = topBar.offsetHeight;
+            document.body.style.paddingTop = `${height}px`;
+        }
+    }
+    
+    // Initial update
+    document.addEventListener('DOMContentLoaded', () => {
+        updateBodyPadding();
+        
+        // Update on window resize with debounce
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                updateBodyPadding();
+            }, 250);
+        });
+    });
+    
+    // Run once more after fonts load (just to be safe)
+    window.addEventListener('load', updateBodyPadding);
+    </script>
+    <div class="volume-popup" id="volumePopup">50%</div>
 </body>
 </html>

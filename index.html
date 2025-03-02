@@ -67,8 +67,9 @@ body {
 
 .tabs {
     display: flex;
-    gap: 15px;
+    gap: 15px; /* Default gap between tabs */
     margin-left: auto;
+    margin-right: 20px; /* Add space between the last tab and the language selector */
 }
 
 .gallery-container {
@@ -103,6 +104,59 @@ body {
     font-size: 1.1em;
 }
 
+/* Language Selector */
+#languageSelector {
+    appearance: none; /* Remove default browser styling */
+    -webkit-appearance: none; /* For Safari */
+    -moz-appearance: none; /* For Firefox */
+    background-color: var(--primary-color); /* Keep the main dropdown background */
+    border: 2px solid var(--accent-color);
+    border-radius: 5px;
+    padding: 10px 15px; /* Adjust padding */
+    color: var(--accent-color);
+    font-family: 'Courier New', monospace;
+    font-size: 1em;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+#languageSelector:hover {
+    border-color: var(--text-color);
+    background-color: rgba(0, 255, 136, 0.1); /* Slight accent color background on hover */
+}
+
+#languageSelector:focus {
+    border-color: var(--text-color);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5); /* Glow effect when focused */
+}
+
+/* Remove default arrow in IE */
+#languageSelector::-ms-expand {
+    display: none;
+}
+
+/* Style the options */
+#languageSelector option {
+    background-color: var(--primary-color); /* Set the background color of options to black */
+    color: var(--accent-color); /* Set the text color */
+    font-family: 'Courier New', monospace;
+    padding: 10px; /* Padding for options */
+    transition: background-color 0.3s ease; /* Add transition for smooth fade */
+}
+
+#languageSelector option:hover {
+    background-color: rgba(0, 255, 136, 0.2); /* Highlight option on hover */
+}
+
+#languageSelector option:checked {
+    background-color: rgba(0, 255, 136, 0.3); /* Highlight selected option */
+}
+/* Fade effect for dropdown options */
+.fade-out {
+    background-color: rgba(0, 0, 0, 0.8) !important; /* Match the top bar color */
+}
 .tab-button:hover,
 .tab-button.active {
     background-color: var(--accent-color);
@@ -438,171 +492,195 @@ s0.parentNode.insertBefore(s1,s0);
 <!--End of Tawk.to Script-->
 </head>
 <body>
-    <div class="top-bar">
-        <div class="profile-section">
-            <img src="images/banner2.png" alt="Ethereal" class="header-image">
-        </div>
-        
-        <nav class="tabs">
-            <button class="tab-button active" onclick="showTab('home')">Home</button>
-            <button class="tab-button" onclick="showTab('news')">News</button>
-            <button class="tab-button" onclick="showTab('about')">About</button>
-            <button class="tab-button" onclick="showTab('projects')">Projects</button>
-            <button class="tab-button" onclick="showTab('settings')">Settings</button>
-        </nav>
-    </div>
-
-    <!-- Contact Tab -->
-    <div id="home" class="tab-content active">
-        <h2>Home</h2>
-        <div class="button-container">
-            <p>The website for Ethereal, which deals with different types of services. <br><br> Note: The website plays music when clicking anything. <br><br>Of course we are on the WiFi! How else would we host this site? By carrier pigeon? <br><br>ETHEREAL GROUP </p>
-        </div>
-    </div>
-
-    <!-- News Tab -->
-    <div id="news" class="tab-content">
-        <h2>Latest Updates</h2>
-        <div class="news-item">
-            <h3>🚀 Website Design</h3>
-            <p>Made website responsive for mobile</p>
-            <p>Added visual for volume slider</p>
-        </div>
-        <div class="news-item">
-            <h3>🔧 New features</h3>
-            <p>Added color selector to settings</p>
-        </div>
-        <div class="news-item">
-            <h3>🔮 Features planned</h3>
-            <p>More software</p>
-            <p>Mirrors for more downloads</p>
-            <p>Unblocked games</p>
-            <p>Different articles</p>
-            <p>Useful Utilities</p>
-        </div>
-    </div>
-
-    <!-- About Tab -->
-    <div id="about" class="tab-content">
-        <h2>About ETHEREAL</h2>
-        <p></p>
-        
-        <h3>🛠 Core Skills</h3>
-        <ul>
-            <li>Windows Batch Scripting</li>
-            <li>VBScript Development</li>
-            <li>Sticking to old UI design</li>
-            <li>Useful Utilities</li>
-            <li>Being unbeatable</li>
-        </ul>
-    </div>
-
-    <!-- Minecraft Tab -->
-    <div id="eagler" class="tab-content">
-        <h2>Minecraft Mirrors</h2>
-        <div class="button-container">
-            <a href="minecraft/b1.3.html" class="social-button" target="_blank">
-                Beta 1.3
-            </a>
-            <a href="minecraft/1.5.2.html" class="social-button" target="_blank">
-                Minecraft 1.5.2
-            </a>
-            <a href="minecraft/1_8_9.html" class="social-button" target="_blank">
-                Minecraft 1.8.8
-            </a>
-            <a href="minecraft/1.8webassembly.html" class="social-button" target="_blank">
-                1.8.8 WebAssembly
-            </a>
-        </div>
-        <div style="margin-top: 20px; text-align: center;">
-            <p>Note: The WebAssembly version is more recommended, since it's faster than JS, which the other versions use.</p>
-        </div>
-    </div>
-
-    <!-- Add the Gallery tab content -->
-    <div id="gallery" class="tab-content">
-        <div class="gallery-container">
-            <div class="fade-text">
-                <h2>Microsoft Toolkit Retro Edition</h2>
-                <p class="fade-in">Now you can generate product keys for legacy Windows and Office products.</p>
-                <p class="fade-in">Based off older keygen programs.</p>
-                <p class="fade-in">Has multiple different choices of music.</p>
-                <p class="fade-in">Has a separate version for people with low disk space by removing music selection setting.</p>
-                <p class="fade-in">Currently supports the following products: </p>
-                <ul>
-                    <li class="fade-in">Windows 95 OEM</li>
-                    <li class="fade-in">Windows 95 Retail</li>
-                    <li class="fade-in">Office 95</li>
-                    <li class="fade-in">Office 97</li>
-                </ul>
+    <body>
+        <div class="top-bar">
+            <div class="profile-section">
+                <img src="images/banner2.png" alt="Ethereal" class="header-image">
             </div>
-            <div class="dimensional-box">
-                <div class="dimensional-inner">
-                    <img src="images/preview.png" alt="Ethereal Art" class="dimensional-image">
-                </div>
-            </div>
-        </div>
-        
-        <!-- Download Buttons -->
-        <div class="button-container" style="margin-top: 30px; justify-content: center;">
-            <a href="https://drive.google.com/uc?export=download&id=17R1gHLXSJlFhPeV0sds01wyL0CyuOwtz" class="download-button" download target="_blank">
-                Download Full Version
-            </a>
-            <a href="https://drive.google.com/uc?export=download&id=14RoIB9qME3a6GZIVMlhLbSHDJGYavcOT" class="download-button" download target="_blank">
-                Download Lite Version
-            </a>
+            
+            <nav class="tabs">
+                <button class="tab-button active" onclick="showTab('home')" data-en="Home" data-hu="Főoldal">Home</button>
+                <button class="tab-button" onclick="showTab('news')" data-en="News" data-hu="Hírek">News</button>
+                <button class="tab-button" onclick="showTab('about')" data-en="About" data-hu="Rólunk">About</button>
+                <button class="tab-button" onclick="showTab('projects')" data-en="Projects" data-hu="Projektek">Projects</button>
+                <button class="tab-button" onclick="showTab('settings')" data-en="Settings" data-hu="Beállítások">Settings</button>
+            </nav>
+            <!-- Language Selector -->
+            <select id="languageSelector" onchange="changeLanguage()">
+                <option value="en" data-en="English" data-hu="Angol">English</option>
+                <option value="hu" data-en="Hungarian" data-hu="Magyar">Hungarian</option>
+            </select>
         </div>
     
-        <div>
-            <h6 style="font-family: 'Courier New', Courier, monospace;">Requirements: Java 8 or newer</h6>
-            <h6 style="font-family: 'Courier New', Courier, monospace;">We are aware of the heavy download being too big. It's due to the many music files integrated into it.</h6>
+        <!-- Home Tab -->
+        <div id="home" class="tab-content active">
+            <h2 data-en="Home" data-hu="Főoldal">Home</h2>
+            <p data-en="The website for Ethereal, which deals with different types of services. <br><br> Note: The website plays music when clicking anything. <br><br>Of course we are on the WiFi! How else would we host this site? By carrier pigeon? <br><br>ETHEREAL GROUP" 
+               data-hu="Az Ethereal weboldala, amely különböző típusú szolgáltatásokkal foglalkozik. <br><br> Megjegyzés: A weboldal zenét játszik, amikor bármit megnyomsz. <br><br>Természetesen a WiFi-n vagyunk! Másképp hogyan tudnánk hosztolni ezt az oldalt? Postagalambbal? <br><br>ETHEREAL CSOPORT">
+               The website for Ethereal, which deals with different types of services. <br><br> Note: The website plays music when clicking anything. <br><br>Of course we are on the WiFi! How else would we host this site? By carrier pigeon? <br><br>ETHEREAL GROUP</p>
         </div>
-    </div>
-
-    <div id="contact" class="tab-content">
-        <div class="button-container">
-            <h1>You found the original creator behind this site!</h1>
-            <a href="https://www.youtube.com/channel/UCHrfNyVLl0xY_pNtSs_5Afg" target="_blank" class="social-button">YouTube</a>
-            <a href="https://discord.gg/qRAUPYa5gV" target="_blank" class="social-button">Discord</a>
-            <a href="https://github.com/BerBerOnGithub" target="_blank" class="social-button">GitHub</a>
-            <a href="https://www.reddit.com/user/gtagrandtheftautov" target="_blank" class="social-button">Reddit</a>
-            <a href="https://steamcommunity.com/profiles/76561198975253048/" target="_blank" class="social-button">Steam</a>
-            <a href="https://www.guilded.gg/profile/4v86PbBm" target="_blank" class="social-button">Guilded</a>
-            <a href="https://archive.org/details/@ber_ber" target="_blank" class="social-button">Archive.org</a>
-            <a href="https://csgoroll.com/r/BERCELBABCA" target="_blank" class="social-button">CSGORoll</a>
+    
+        <!-- News Tab -->
+        <div id="news" class="tab-content">
+            <h2 data-en="Latest Updates" data-hu="Legfrissebb Frissítések">Latest Updates</h2>
+            <div class="news-item">
+                <h3 data-en="🚀 Website Design" data-hu="🚀 Weboldal Tervezés">🚀 Website Design</h3>
+                <p data-en="Made website responsive for mobile" data-hu="A weboldal mobilra optimalizálva lett">Made website responsive for mobile</p>
+                <p data-en="Added visual for volume slider" data-hu="Hangerő csúszka vizuális elemet adtunk hozzá">Added visual for volume slider</p>
+            </div>
+            <div class="news-item">
+                <h3 data-en="🔧 New features" data-hu="🔧 Új funkciók">🔧 New features</h3>
+                <p data-en="Added color selector to settings" data-hu="Színválasztó hozzáadva a beállításokhoz">Added color selector to settings</p>
+            </div>
+            <div class="news-item">
+                <h3 data-en="🔮 Features planned" data-hu="🔮 Tervezett funkciók">🔮 Features planned</h3>
+                <p data-en="More software" data-hu="További szoftverek">More software</p>
+                <p data-en="Mirrors for more downloads" data-hu="Több letöltési tükör">Mirrors for more downloads</p>
+                <p data-en="Unblocked games" data-hu="Feloldott játékok">Unblocked games</p>
+                <p data-en="Different articles" data-hu="Különböző cikkek">Different articles</p>
+                <p data-en="Useful Utilities" data-hu="Hasznos segédprogramok">Useful Utilities</p>
+            </div>
         </div>
-    </div>
-    <div id="projects" class="tab-content">
-        <h2>Projects</h2>
-        <div class="button-container">
-            <button class="social-button" onclick="showTab('eagler')">Minecraft Mirrors</button>
-            <button class="social-button" onclick="showTab('gallery')">Keygen</button>
+    
+        <!-- About Tab -->
+        <div id="about" class="tab-content">
+            <h2 data-en="About ETHEREAL" data-hu="Az ETHEREAL-ról">About ETHEREAL</h2>
+            <p></p>
+            
+            <h3 data-en="🛠 Core Skills" data-hu="🛠 Alapvető készségek">🛠 Core Skills</h3>
+            <ul>
+                <li data-en="Windows Batch Scripting" data-hu="Windows Batch Scriptelés">Windows Batch Scripting</li>
+                <li data-en="VBScript Development" data-hu="VBScript Fejlesztés">VBScript Development</li>
+                <li data-en="Sticking to old UI design" data-hu="Régi UI designhoz ragaszkodás">Sticking to old UI design</li>
+                <li data-en="Useful Utilities" data-hu="Hasznos segédprogramok">Useful Utilities</li>
+                <li data-en="Being unbeatable" data-hu="Legyőzhetetlenség">Being unbeatable</li>
+            </ul>
         </div>
-    </div>
-
-<!-- Add this new tab content section after the Gallery tab -->
-<div id="settings" class="tab-content">
-    <h2>Settings</h2>
-    <div class="settings-option">
-        <label for="musicVolume">Music Volume:</label>
-        <input type="range" id="musicVolume" min="0" max="1" step="0.1" value="0.2">
-    </div>
-    <div class="settings-option">
-        <label for="animations">Enable Animations:</label>
-        <input type="checkbox" id="animations" checked>
-    </div>
-    <div class="settings-option">
-        <label for="rgbMode">RGB Color Cycle:</label>
-        <input type="checkbox" id="rgbMode">
-    </div>
-    <div class="settings-option">
-        <label for="accentColor">Accent Color:</label>
-        <input type="color" id="accentColor" value="#00ff88">
-    </div>
-</div>
-    <footer>
-        <h6>Copyright © 2025 ETHEREAL. All rights reserved.</h6>
-    </footer>
+    
+        <!-- Minecraft Tab -->
+        <div id="eagler" class="tab-content">
+            <h2 data-en="Minecraft Mirrors" data-hu="Minecraft Tükrök">Minecraft Mirrors</h2>
+            <div class="button-container">
+                <a href="minecraft/b1.3.html" class="social-button" target="_blank" data-en="Beta 1.3" data-hu="Beta 1.3">
+                    Beta 1.3
+                </a>
+                <a href="minecraft/1.5.2.html" class="social-button" target="_blank" data-en="Minecraft 1.5.2" data-hu="Minecraft 1.5.2">
+                    Minecraft 1.5.2
+                </a>
+                <a href="minecraft/1_8_9.html" class="social-button" target="_blank" data-en="Minecraft 1.8.8" data-hu="Minecraft 1.8.8">
+                    Minecraft 1.8.8
+                </a>
+                <a href="minecraft/1.8webassembly.html" class="social-button" target="_blank" data-en="1.8.8 WebAssembly" data-hu="1.8.8 WebAssembly">
+                    1.8.8 WebAssembly
+                </a>
+            </div>
+            <div style="margin-top: 20px; text-align: center;">
+                <p data-en="Note: The WebAssembly version is more recommended, since it's faster than JS, which the other versions use." 
+                   data-hu="Megjegyzés: A WebAssembly verzió jobban ajánlott, mivel gyorsabb, mint a JS, amelyet a többi verzió használ.">
+                   Note: The WebAssembly version is more recommended, since it's faster than JS, which the other versions use.</p>
+            </div>
+        </div>
+    
+        <!-- Gallery Tab -->
+        <div id="gallery" class="tab-content">
+            <div class="gallery-container">
+                <div class="fade-text">
+                    <h2 data-en="Microsoft Toolkit Retro Edition" data-hu="Microsoft Toolkit Retro Kiadás">Microsoft Toolkit Retro Edition</h2>
+                    <p class="fade-in" data-en="Now you can generate product keys for legacy Windows and Office products." 
+                       data-hu="Most már generálhatsz termékkulcsokat régi Windows és Office termékekhez.">
+                       Now you can generate product keys for legacy Windows and Office products.</p>
+                    <p class="fade-in" data-en="Based off older keygen programs." 
+                       data-hu="Régi keygen programok alapján.">
+                       Based off older keygen programs.</p>
+                    <p class="fade-in" data-en="Has multiple different choices of music." 
+                       data-hu="Több különböző zenei választási lehetőség van.">
+                       Has multiple different choices of music.</p>
+                    <p class="fade-in" data-en="Has a separate version for people with low disk space by removing music selection setting." 
+                       data-hu="Külön verzió áll rendelkezésre alacsony lemezterületű felhasználók számára a zeneválasztási beállítás eltávolításával.">
+                       Has a separate version for people with low disk space by removing music selection setting.</p>
+                    <p class="fade-in" data-en="Currently supports the following products:" 
+                       data-hu="Jelenleg a következő termékeket támogatja:">
+                       Currently supports the following products:</p>
+                    <ul>
+                        <li class="fade-in" data-en="Windows 95 OEM" data-hu="Windows 95 OEM">Windows 95 OEM</li>
+                        <li class="fade-in" data-en="Windows 95 Retail" data-hu="Windows 95 Retail">Windows 95 Retail</li>
+                        <li class="fade-in" data-en="Office 95" data-hu="Office 95">Office 95</li>
+                        <li class="fade-in" data-en="Office 97" data-hu="Office 97">Office 97</li>
+                    </ul>
+                </div>
+                <div class="dimensional-box">
+                    <div class="dimensional-inner">
+                        <img src="images/preview.png" alt="Ethereal Art" class="dimensional-image">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Download Buttons -->
+            <div class="button-container" style="margin-top: 30px; justify-content: center;">
+                <a href="https://drive.google.com/uc?export=download&id=17R1gHLXSJlFhPeV0sds01wyL0CyuOwtz" class="download-button" download target="_blank" data-en="Download Full Version" data-hu="Teljes verzió letöltése">
+                    Download Full Version
+                </a>
+                <a href="https://drive.google.com/uc?export=download&id=14RoIB9qME3a6GZIVMlhLbSHDJGYavcOT" class="download-button" download target="_blank" data-en="Download Lite Version" data-hu="Lite verzió letöltése">
+                    Download Lite Version
+                </a>
+            </div>
+        
+            <div>
+                <h6 style="font-family: 'Courier New', Courier, monospace;" data-en="Requirements: Java 8 or newer" data-hu="Követelmények: Java 8 vagy újabb">Requirements: Java 8 or newer</h6>
+                <h6 style="font-family: 'Courier New', Courier, monospace;" data-en="We are aware of the heavy download being too big. It's due to the many music files integrated into it." 
+                    data-hu="Tudatában vagyunk annak, hogy a nagy letöltési méret túl nagy. Ennek oka a sok zenei fájl, amelyet tartalmaz.">
+                    We are aware of the heavy download being too big. It's due to the many music files integrated into it.</h6>
+            </div>
+        </div>
+    
+        <!-- Contact Tab -->
+        <div id="contact" class="tab-content">
+            <div class="button-container">
+                <h1 data-en="You found the original creator behind this site!" data-hu="Megtaláltad az oldal eredeti készítőjét!">You found the original creator behind this site!</h1>
+                <a href="https://www.youtube.com/channel/UCHrfNyVLl0xY_pNtSs_5Afg" target="_blank" class="social-button" data-en="YouTube" data-hu="YouTube">YouTube</a>
+                <a href="https://discord.gg/qRAUPYa5gV" target="_blank" class="social-button" data-en="Discord" data-hu="Discord">Discord</a>
+                <a href="https://github.com/BerBerOnGithub" target="_blank" class="social-button" data-en="GitHub" data-hu="GitHub">GitHub</a>
+                <a href="https://www.reddit.com/user/gtagrandtheftautov" target="_blank" class="social-button" data-en="Reddit" data-hu="Reddit">Reddit</a>
+                <a href="https://steamcommunity.com/profiles/76561198975253048/" target="_blank" class="social-button" data-en="Steam" data-hu="Steam">Steam</a>
+                <a href="https://www.guilded.gg/profile/4v86PbBm" target="_blank" class="social-button" data-en="Guilded" data-hu="Guilded">Guilded</a>
+                <a href="https://archive.org/details/@ber_ber" target="_blank" class="social-button" data-en="Archive.org" data-hu="Archive.org">Archive.org</a>
+                <a href="https://csgoroll.com/r/BERCELBABCA" target="_blank" class="social-button" data-en="CSGORoll" data-hu="CSGORoll">CSGORoll</a>
+            </div>
+        </div>
+    
+        <!-- Projects Tab -->
+        <div id="projects" class="tab-content">
+            <h2 data-en="Projects" data-hu="Projektek">Projects</h2>
+            <div class="button-container">
+                <button class="social-button" onclick="showTab('eagler')" data-en="Minecraft Mirrors" data-hu="Minecraft Tükrök">Minecraft Mirrors</button>
+                <button class="social-button" onclick="showTab('gallery')" data-en="Keygen" data-hu="Keygen">Keygen</button>
+            </div>
+        </div>
+    
+        <!-- Settings Tab -->
+        <div id="settings" class="tab-content">
+            <h2 data-en="Settings" data-hu="Beállítások">Settings</h2>
+            <div class="settings-option">
+                <label for="musicVolume" data-en="Music Volume:" data-hu="Zene hangerő:">Music Volume:</label>
+                <input type="range" id="musicVolume" min="0" max="1" step="0.1" value="0.2">
+            </div>
+            <div class="settings-option">
+                <label for="animations" data-en="Enable Animations:" data-hu="Animációk engedélyezése:">Enable Animations:</label>
+                <input type="checkbox" id="animations" checked>
+            </div>
+            <div class="settings-option">
+                <label for="rgbMode" data-en="RGB Color Cycle:" data-hu="RGB Színciklus:">RGB Color Cycle:</label>
+                <input type="checkbox" id="rgbMode">
+            </div>
+            <div class="settings-option">
+                <label for="accentColor" data-en="Accent Color:" data-hu="Kiemelő szín:">Accent Color:</label>
+                <input type="color" id="accentColor" value="#00ff88">
+            </div>
+        </div>
+    
+        <footer>
+            <h6 data-en="Copyright © 2025 ETHEREAL. All rights reserved." data-hu="Copyright © 2025 ETHEREAL. Minden jog fenntartva.">Copyright © 2025 ETHEREAL. All rights reserved.</h6>
+        </footer>
 
     <script>
 // Updated showTab function
@@ -839,6 +917,52 @@ document.addEventListener('keydown', (e) => {
     colorPicker.addEventListener('input', function() {
         const newColor = colorPicker.value;
         document.documentElement.style.setProperty('--accent-color', newColor);
+    });
+});
+    </script>
+    <script>
+function changeLanguage() {
+    const selectedLanguage = document.getElementById('languageSelector').value;
+    const elements = document.querySelectorAll('[data-en], [data-hu]');
+    
+    elements.forEach(element => {
+        const translation = element.getAttribute(`data-${selectedLanguage}`);
+        element.innerHTML = translation; // Use innerHTML to render HTML tags
+    });
+}
+document.addEventListener('DOMContentLoaded', function () {
+    const languageSelector = document.getElementById('languageSelector');
+
+    // Add event listener for when the dropdown is opened
+    languageSelector.addEventListener('focus', function () {
+        const options = document.querySelectorAll('#languageSelector option');
+        options.forEach(option => {
+            option.classList.remove('fade-out'); // Remove fade effect when dropdown is focused
+        });
+    });
+
+    // Add event listener for when the dropdown loses focus
+    languageSelector.addEventListener('blur', function () {
+        const options = document.querySelectorAll('#languageSelector option');
+        options.forEach(option => {
+            option.classList.add('fade-out'); // Add fade effect when dropdown loses focus
+        });
+    });
+
+    // Add event listener for when the mouse leaves the dropdown
+    languageSelector.addEventListener('mouseleave', function () {
+        const options = document.querySelectorAll('#languageSelector option');
+        options.forEach(option => {
+            option.classList.add('fade-out'); // Add fade effect when mouse leaves
+        });
+    });
+
+    // Add event listener for when the mouse enters the dropdown
+    languageSelector.addEventListener('mouseenter', function () {
+        const options = document.querySelectorAll('#languageSelector option');
+        options.forEach(option => {
+            option.classList.remove('fade-out'); // Remove fade effect when mouse enters
+        });
     });
 });
     </script>

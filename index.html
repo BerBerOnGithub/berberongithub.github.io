@@ -394,6 +394,25 @@ footer {
     border-top: 1px solid var(--accent-color);
     z-index: 1000;
 }
+.settings-option input[type="color"] {
+    width: 60px;
+    height: 30px;
+    border: 2px solid var(--accent-color);
+    border-radius: 5px;
+    background: var(--primary-color);
+    cursor: pointer;
+    padding: 0;
+}
+
+.settings-option input[type="color"]::-webkit-color-swatch {
+    border: none;
+    border-radius: 3px;
+}
+
+.settings-option input[type="color"]::-moz-color-swatch {
+    border: none;
+    border-radius: 3px;
+}
 @keyframes konamiFlash {
         0% { background: var(--primary-color); }
         50% { background: var(--accent-color); }
@@ -451,7 +470,7 @@ s0.parentNode.insertBefore(s1,s0);
         </div>
         <div class="news-item">
             <h3>🔧 New features</h3>
-            <p>Added new Minecraft version to mirrors list</p>
+            <p>Added color selector to settings</p>
         </div>
         <div class="news-item">
             <h3>🔮 Features planned</h3>
@@ -575,6 +594,10 @@ s0.parentNode.insertBefore(s1,s0);
     <div class="settings-option">
         <label for="rgbMode">RGB Color Cycle:</label>
         <input type="checkbox" id="rgbMode">
+    </div>
+    <div class="settings-option">
+        <label for="accentColor">Accent Color:</label>
+        <input type="color" id="accentColor" value="#00ff88">
     </div>
 </div>
     <footer>
@@ -710,7 +733,6 @@ function updateAccentColor() {
     }
 }
 
-// Changed event handler (removed localStorage)
 rgbCheckbox.addEventListener('change', function() {
     rgbEnabled = this.checked;
     if (rgbEnabled) {
@@ -723,7 +745,18 @@ rgbCheckbox.addEventListener('change', function() {
             defaultAccent
         );
     }
-    // Removed localStorage.setItem
+});
+
+// Ensure color picker disables RGB mode
+const colorPicker = document.getElementById('accentColor');
+colorPicker.addEventListener('input', function() {
+    if (rgbEnabled) {
+        rgbCheckbox.checked = false;
+        rgbEnabled = false;
+        cancelAnimationFrame(animationFrameId);
+    }
+    const newColor = colorPicker.value;
+    document.documentElement.style.setProperty('--accent-color', newColor);
 });
 
 // Set initial state (always disabled)
@@ -793,6 +826,21 @@ document.addEventListener('keydown', (e) => {
     
     // Run once more after fonts load (just to be safe)
     window.addEventListener('load', updateBodyPadding);
+    document.addEventListener('DOMContentLoaded', function() {
+    const colorPicker = document.getElementById('accentColor');
+
+    // Set initial color from CSS variable
+    const initialColor = getComputedStyle(document.documentElement)
+        .getPropertyValue('--accent-color')
+        .trim();
+    colorPicker.value = initialColor;
+
+    // Update accent color when the user selects a new color
+    colorPicker.addEventListener('input', function() {
+        const newColor = colorPicker.value;
+        document.documentElement.style.setProperty('--accent-color', newColor);
+    });
+});
     </script>
     <div class="volume-popup" id="volumePopup">50%</div>
 </body>

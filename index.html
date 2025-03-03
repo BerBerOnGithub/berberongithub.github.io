@@ -151,7 +151,84 @@ body {
 }
 
 #languageSelector option:checked {
-    background-color: rgba(0, 255, 136, 0.3); /* Highlight selected option */
+    background-color: #1a1a1a; /* Highlight selected option */
+}
+/* Style the mode selector container */
+#modeSelector {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--primary-color);
+    border: 2px solid var(--accent-color);
+    border-radius: 25px;
+    padding: 10px 20px;
+    color: var(--accent-color);
+    font-family: 'Courier New', monospace;
+    font-size: 1em;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    position: relative;
+    width: 150px;
+    text-align: center;
+}
+/* Hover effect */
+#modeSelector:hover {
+    background-color: rgba(0, 255, 136, 0.1);
+    border-color: var(--text-color);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+}
+
+/* Focus effect */
+#modeSelector:focus {
+    border-color: var(--text-color);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.7);
+}
+
+/* Rotate arrow when dropdown is open */
+#modeSelector:focus::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+/* Style the options */
+#modeSelector option {
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    font-family: 'Courier New', monospace;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#modeSelector option:hover {
+    background-color: rgba(255, 255, 255);
+}
+
+#modeSelector option:checked {
+    background-color: #1a1a1a;
+}
+
+/* Light mode specific styles */
+body.light-mode #modeSelector {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #00ff88;
+}
+
+body.light-mode #modeSelector::after {
+    color: #000000;
+}
+
+body.light-mode #modeSelector option {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body.light-mode #modeSelector option:hover {
+    background-color: rgba(0, 255, 136, 0.2);
+}
+
+body.light-mode #modeSelector option:checked {
+    background-color: rgba(255, 255, 255);
 }
 /* Fade effect for dropdown options */
 .fade-out {
@@ -286,7 +363,58 @@ body.no-animations .fade-in {
     height: auto;
     box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
 }
+body.light-mode {
+    background-color: #e5e5e5; /* Light background */
+    color: #000000; /* Dark text */
+}
 
+body.light-mode h2,
+body.light-mode h3,
+body.light-mode h6,
+body.light-mode p,
+body.light-mode li {
+    color: #000000; /* Force black text for all elements */
+}
+body.light-mode .settings-option input[type="color"] {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .top-bar {
+    background: #ffffff; /* Light top bar */
+    color: #000000; /* Dark text in top bar */
+}
+
+body.light-mode .tab-button {
+    color: #00ff88; /* Keep accent color for buttons */
+    color: #000000; /* Black text for tab buttons */
+}
+
+body.light-mode footer {
+    background: #f0f0f0; /* Light footer */
+    color: #000000; /* Dark text in footer */
+}
+body.light-mode #languageSelector {
+    background-color: #ffffff; /* White background */
+    color: #000000; /* Black text */
+    border: 2px solid #00ff88; /* Keep accent color border */
+}
+
+body.light-mode #languageSelector option {
+    background-color: #ffffff; /* White background for options */
+    color: #000000; /* Black text for options */
+}
+/* Fix Grey Border in Light Mode Only */
+body.light-mode .dimensional-inner {
+    background: rgba(255, 255, 255, 0.3); /* Light background for the inner box */
+}
+
+body.light-mode .dimensional-image { /* Keep green border */
+    box-shadow: 0 0 30px rgba(0, 255, 136, 0.6); /* Keep green glow */
+}
+/* Light Mode Styles for Settings */
+body.light-mode .settings-option {
+    background: rgba(0, 0, 0, 0.1); /* Light background for settings options */
+}
 /* Responsive design */
 @media (max-width: 768px) {
     body {
@@ -467,15 +595,15 @@ footer {
     border: none;
     border-radius: 3px;
 }
-@keyframes konamiFlash {
+/* @keyframes konamiFlash {
         0% { background: var(--primary-color); }
         50% { background: var(--accent-color); }
-        100% { background: var(--primary-color); }
+        100% { background: var(--primary-color); }          This part isn't used...for now :)
     }
     
     .secret-unlock {
         display: none;
-    }
+    } */
     </style>
 <!--Start of Tawk.to Script-->
 <script type="text/javascript">
@@ -525,12 +653,12 @@ s0.parentNode.insertBefore(s1,s0);
             <h2 data-en="Latest Updates" data-hu="Legfrissebb Frissítések">Latest Updates</h2>
             <div class="news-item">
                 <h3 data-en="🚀 Website Design" data-hu="🚀 Weboldal Tervezés">🚀 Website Design</h3>
-                <p data-en="Made website responsive for mobile" data-hu="A weboldal mobilra optimalizálva lett">Made website responsive for mobile</p>
-                <p data-en="Added visual for volume slider" data-hu="Hangerő csúszka vizuális elemet adtunk hozzá">Added visual for volume slider</p>
+                <p data-en="Added color fixes" data-hu="Szín javítások">Added color fixes</p>
             </div>
             <div class="news-item">
                 <h3 data-en="🔧 New features" data-hu="🔧 Új funkciók">🔧 New features</h3>
-                <p data-en="Added color selector to settings" data-hu="Színválasztó hozzáadva a beállításokhoz">Added color selector to settings</p>
+                <p data-en="Added light/dark mode selector" data-hu="Világos/Sötét mód kiválasztó hozzáadása">Added light/dark mode selector</p>
+                <p data-en="Added language selector" data-hu="Nyelv kiválasztó hozzáadása">Added language selector</p>
             </div>
             <div class="news-item">
                 <h3 data-en="🔮 Features planned" data-hu="🔮 Tervezett funkciók">🔮 Features planned</h3>
@@ -675,6 +803,13 @@ s0.parentNode.insertBefore(s1,s0);
             <div class="settings-option">
                 <label for="accentColor" data-en="Accent Color:" data-hu="Kiemelő szín:">Accent Color:</label>
                 <input type="color" id="accentColor" value="#00ff88">
+            </div>
+            <div class="settings-option">
+                <label for="modeSelector" data-en="Select Mode:" data-hu="Válassza ki a módot:">Select Mode:</label>
+                <select id="modeSelector" onchange="changeMode()">
+                    <option value="dark" data-en="Dark Mode" data-hu="Sötét mód">Dark Mode</option>
+                    <option value="light" data-en="Light Mode" data-hu="Világos mód">Light Mode</option>
+                </select>
             </div>
         </div>
     
@@ -966,6 +1101,27 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
     </script>
+    <script>
+        function changeMode() {
+    const selectedMode = document.getElementById('modeSelector').value;
+    if (selectedMode === 'light') {
+        document.body.classList.add('light-mode');
+    } else {
+        document.body.classList.remove('light-mode');
+    }
+}
+    </script>
+    <style>
+        /* Default (Dark Mode) */
+.header-image {
+    content: url("images/banner2.png"); /* Default image */
+}
+
+/* Light Mode */
+body.light-mode .header-image {
+    content: url("images/banner2light.png"); /* Alternative image for light mode */
+}
+    </style>
     <div class="volume-popup" id="volumePopup">50%</div>
 </body>
 </html>

@@ -33,6 +33,7 @@
     --text-color: #ffffff;
     --animation-delay-step: 0.3s;
     --transition-time: 0.5s;
+    --glow-color: rgba(0, 255, 136, 0.7);
 }
 
 /* Base styles */
@@ -110,7 +111,7 @@ body {
     -webkit-appearance: none; /* For Safari */
     -moz-appearance: none; /* For Firefox */
     background-color: var(--primary-color); /* Keep the main dropdown background */
-    border: 2px solid var(--accent-color);
+    border: 2px solid var(--accent-color) !important;
     border-radius: 5px;
     padding: 10px 15px; /* Adjust padding */
     color: var(--accent-color);
@@ -123,13 +124,14 @@ body {
 }
 
 #languageSelector:hover {
+    background-color: var(--primary-color); /* Use the same background color as the default state */
     border-color: var(--text-color);
-    background-color: rgba(0, 255, 136, 0.1); /* Slight accent color background on hover */
+    box-shadow: 0 0 10px var(--glow-color) !important;
 }
 
 #languageSelector:focus {
     border-color: var(--text-color);
-    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5); /* Glow effect when focused */
+    box-shadow: 0 0 10px var(--glow-color) !important; /* Glow effect when focused */
 }
 
 /* Remove default arrow in IE */
@@ -138,20 +140,23 @@ body {
 }
 
 /* Style the options */
+/* Dark Mode */
 #languageSelector option {
-    background-color: var(--primary-color); /* Set the background color of options to black */
+    background-color: var(--primary-color) !important; /* Set the background color of options to #1a1a1a */
     color: var(--accent-color); /* Set the text color */
     font-family: 'Courier New', monospace;
     padding: 10px; /* Padding for options */
     transition: background-color 0.3s ease; /* Add transition for smooth fade */
 }
 
-#languageSelector option:hover {
-    background-color: rgba(0, 255, 136, 0.2); /* Highlight option on hover */
+#languageSelector:hover {
+    background-color: var(--primary-color) !important; /* Use the same background color as the default state */
+    border-color: var(--text-color) !important;
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
 }
 
 #languageSelector option:checked {
-    background-color: #1a1a1a; /* Highlight selected option */
+    background-color: #1a1a1a !important; /* Highlight selected option */
 }
 /* Style the mode selector container */
 #modeSelector {
@@ -159,10 +164,10 @@ body {
     -webkit-appearance: none;
     -moz-appearance: none;
     background-color: var(--primary-color);
-    border: 2px solid var(--accent-color);
+    border: 2px solid var(--accent-color) !important;
     border-radius: 25px;
     padding: 10px 20px;
-    color: var(--accent-color);
+    color: var(--accent-color) !important;
     font-family: 'Courier New', monospace;
     font-size: 1em;
     cursor: pointer;
@@ -176,13 +181,13 @@ body {
 #modeSelector:hover {
     background-color: rgba(0, 255, 136, 0.1);
     border-color: var(--text-color);
-    box-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+    box-shadow: 0 0 10px var(--glow-color) !important;
 }
 
 /* Focus effect */
 #modeSelector:focus {
     border-color: var(--text-color);
-    box-shadow: 0 0 15px rgba(0, 255, 136, 0.7);
+    box-shadow: 0 0 15px var(--glow-color) !important;
 }
 
 /* Rotate arrow when dropdown is open */
@@ -193,7 +198,7 @@ body {
 /* Style the options */
 #modeSelector option {
     background-color: var(--primary-color);
-    color: var(--accent-color);
+    color: var(--accent-color) !important;
     font-family: 'Courier New', monospace;
     padding: 10px;
     transition: background-color 0.3s ease;
@@ -242,8 +247,8 @@ body.light-mode #modeSelector option:checked {
 
 .social-button {
     background-color: transparent;
-    color: var(--accent-color);
-    border: 2px solid var(--accent-color);
+    color: var(--accent-color) !important;
+    border: 2px solid var(--accent-color) !important;
     padding: 12px;
     border-radius: 5px;
     cursor: pointer;
@@ -309,6 +314,11 @@ body.no-animations .fade-in {
     opacity: 1;
     transform: translateY(0);
 }
+#accentColor,
+#modeSelector,
+#languageSelector {
+    transition: border-color 0.3s ease;
+}
 
 /* Animations */
 @keyframes fadeIn {
@@ -361,7 +371,7 @@ body.no-animations .fade-in {
 .dimensional-image {
     width: 100%;
     height: auto;
-    box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+    box-shadow: 0 0 30px var(--glow-color);
 }
 body.light-mode {
     background-color: #e5e5e5; /* Light background */
@@ -394,18 +404,22 @@ body.light-mode footer {
     color: #000000; /* Dark text in footer */
 }
 body.light-mode #languageSelector {
-    background-color: #ffffff; /* White background */
-    color: #000000; /* Black text */
-    border: 2px solid #00ff88; /* Keep accent color border */
+    background-color: #ffffff !important; /* White background */
+    color: var(--accent-color); /* Black text */
+    border: 2px solid var(--accent-color); /* Keep accent color border */
 }
 
-body.light-mode #languageSelector:hover {
-    background-color: #ffffff; /* White background for options */
-    color: #000000; /* Black text for options */
-}
 body.light-mode #languageSelector option {
-    background-color: #ffffff; /* White background for options */
-    color: #000000; /* Black text for options */
+    background-color: #ffffff !important; /* White background for options */
+    color: #000000 !important; /* Black text for options */
+}
+
+body.light-mode #languageSelector option:hover {
+    background-color: #ffffff !important; /* Highlight option on hover */
+}
+
+body.light-mode #languageSelector option:checked {
+    background-color: #ffffff !important; /* Highlight selected option */
 }
 /* Fix Grey Border in Light Mode Only */
 body.light-mode .dimensional-inner {
@@ -413,7 +427,7 @@ body.light-mode .dimensional-inner {
 }
 
 body.light-mode .dimensional-image { /* Keep green border */
-    box-shadow: 0 0 30px rgba(0, 255, 136, 0.6); /* Keep green glow */
+    box-shadow: 0 0 30px var(--glow-color);
 }
 /* Light Mode Styles for Settings */
 body.light-mode .settings-option {
@@ -583,7 +597,7 @@ footer {
 .settings-option input[type="color"] {
     width: 60px;
     height: 30px;
-    border: 2px solid var(--accent-color);
+    border: 2px solid var(--accent-color) !important;
     border-radius: 5px;
     background: var(--primary-color);
     cursor: pointer;
@@ -657,8 +671,8 @@ s0.parentNode.insertBefore(s1,s0);
             <h2 data-en="Latest Updates" data-hu="Legfrissebb Frissítések">Latest Updates</h2>
             <div class="news-item">
                 <h3 data-en="🚀 Website Design" data-hu="🚀 Weboldal Tervezés">🚀 Website Design</h3>
-                <p data-en="Made website responsive for mobile" data-hu="A weboldal mobilra optimalizálva lett">Made website responsive for mobile</p>
-                <p data-en="Added visual for volume slider" data-hu="Hangerő csúszka vizuális elemet adtunk hozzá">Added visual for volume slider</p>
+                <p data-en="Fixed color issues" data-hu="Szín problémák kijavítása">Fixed color issues</p>
+                <p data-en="MORE RGB!" data-hu="TÖBB RGB!">MORE RGB!</p>
             </div>
             <div class="news-item">
                 <h3 data-en="🔧 New features" data-hu="🔧 Új funkciók">🔧 New features</h3>
@@ -932,50 +946,72 @@ const animationsToggle = document.getElementById('animations');
 animationsToggle.addEventListener('change', function() {
     document.body.classList.toggle('no-animations', !this.checked);
 });
-// RGB Color Cycling Feature (non-persistent)
+// Function to update accent color
+function updateAccentColor(color) {
+    document.documentElement.style.setProperty('--accent-color', color);
+    document.documentElement.style.setProperty('--glow-color', color);
+}
+// RGB Color Cycling Feature
 const rgbCheckbox = document.getElementById('rgbMode');
 let rgbEnabled = false;
 let hue = 0;
 let animationFrameId = null;
 const defaultAccent = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
 
-function updateAccentColor() {
+function cycleAccentColor() {
     hue = (hue + 0.5) % 360;
-    document.documentElement.style.setProperty(
-        '--accent-color', 
-        `hsl(${hue}, 100%, 50%)`
-    );
+    const newColor = `hsl(${hue}, 100%, 50%)`;
+    updateAccentColor(newColor);
     if (rgbEnabled) {
-        animationFrameId = requestAnimationFrame(updateAccentColor);
+        animationFrameId = requestAnimationFrame(cycleAccentColor);
     }
 }
 
-rgbCheckbox.addEventListener('change', function() {
+// Toggle RGB mode
+rgbCheckbox.addEventListener('change', function () {
     rgbEnabled = this.checked;
     if (rgbEnabled) {
         hue = 0;
-        updateAccentColor();
+        cycleAccentColor();
     } else {
         cancelAnimationFrame(animationFrameId);
-        document.documentElement.style.setProperty(
-            '--accent-color', 
-            defaultAccent
-        );
+        updateAccentColor(defaultAccent);
     }
 });
-
-// Ensure color picker disables RGB mode
+// Color Picker
 const colorPicker = document.getElementById('accentColor');
-colorPicker.addEventListener('input', function() {
+colorPicker.addEventListener('input', function () {
     if (rgbEnabled) {
         rgbCheckbox.checked = false;
         rgbEnabled = false;
         cancelAnimationFrame(animationFrameId);
     }
     const newColor = colorPicker.value;
-    document.documentElement.style.setProperty('--accent-color', newColor);
+    updateAccentColor(newColor);
 });
 
+// Function to update border colors
+function updateBorderColors() {
+    const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
+    const colorPicker = document.getElementById('accentColor');
+    const modeSelector = document.getElementById('modeSelector');
+    const languageSelector = document.getElementById('languageSelector');
+
+    if (colorPicker) {
+        colorPicker.style.borderColor = accentColor;
+    }
+    if (modeSelector) {
+        modeSelector.style.borderColor = accentColor;
+    }
+    if (languageSelector) {
+        languageSelector.style.borderColor = accentColor;
+    }
+}
+
+// Initial update
+document.addEventListener('DOMContentLoaded', function() {
+    updateBorderColors();
+});
 // Set initial state (always disabled)
 rgbCheckbox.checked = false; // Force unchecked on page load
     </script>
@@ -1114,6 +1150,46 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.classList.remove('light-mode');
     }
 }
+// Function to update border colors
+function updateBorderColors() {
+    const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent-color').trim();
+    const colorPicker = document.getElementById('accentColor');
+    const modeSelector = document.getElementById('modeSelector');
+    const languageSelector = document.getElementById('languageSelector');
+
+    if (colorPicker) {
+        colorPicker.style.borderColor = accentColor;
+    }
+    if (modeSelector) {
+        modeSelector.style.borderColor = accentColor;
+    }
+    if (languageSelector) {
+        languageSelector.style.borderColor = accentColor;
+    }
+}
+
+// Update border colors when the accent color changes
+document.addEventListener('DOMContentLoaded', function() {
+    const colorPicker = document.getElementById('accentColor');
+    const rgbCheckbox = document.getElementById('rgbMode');
+
+    // Update border colors when the color picker changes
+    if (colorPicker) {
+        colorPicker.addEventListener('input', function() {
+            updateBorderColors();
+        });
+    }
+
+    // Update border colors when RGB mode is toggled
+    if (rgbCheckbox) {
+        rgbCheckbox.addEventListener('change', function() {
+            updateBorderColors();
+        });
+    }
+
+    // Initial update
+    updateBorderColors();
+});
     </script>
     <style>
         /* Default (Dark Mode) */

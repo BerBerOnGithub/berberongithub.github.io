@@ -270,7 +270,7 @@ body.no-animations .fade-in {
 
 .social-button:hover {
     background-color: var(--accent-color);
-    color: var(--primary-color);
+    color: var(--primary-color) !important;
 }
 /* Settings specific styles */
 .settings-option {
@@ -290,7 +290,9 @@ body.no-animations .fade-in {
 .settings-option input[type="range"] {
     width: 200px;
 }
-
+#modeSelector {
+    transition: all 0.3s ease !important; /* Smooth transition for all properties */
+}
 .settings-option input[type="checkbox"] {
     transform: scale(1.5);
 }
@@ -552,6 +554,95 @@ img {
     gap: 15px;
     margin: 30px 0;
 }
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: var(--primary-color); /* Default background color */
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid var(--accent-color); /* Accent color border */
+    width: 80%; /* Could be more or less, depending on screen size */
+    max-width: 400px; /* Limit maximum width */
+    text-align: center;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Add shadow */
+    color: var(--text-color); /* Text color */
+}
+
+/* Close Button */
+.close-button {
+    color: var(--accent-color); /* Accent color for the close button */
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--text-color); /* Text color on hover/focus */
+    text-decoration: none;
+}
+
+/* Light Mode Styles */
+body.light-mode .modal-content {
+    background-color: #ffffff; /* Light background */
+    color: #000000; /* Dark text */
+    border: 1px solid var(--accent-color); /* Accent color border */
+}
+
+body.light-mode .close-button {
+    color: var(--accent-color); /* Accent color for the close button */
+}
+
+body.light-mode .close-button:hover,
+body.light-mode .close-button:focus {
+    color: #000000; /* Dark text on hover/focus */
+}
+
+/* Dark Mode Styles */
+body.dark-mode .modal-content {
+    background-color: #1a1a1a; /* Dark background */
+    color: #ffffff; /* Light text */
+    border: 1px solid #00ff88; /* Accent color border */
+}
+
+body.dark-mode .close-button {
+    color: var(--accent-color) /* Accent color for the close button */
+}
+
+body.dark-mode .close-button:hover,
+body.dark-mode .close-button:focus {
+    color: #ffffff; /* Light text on hover/focus */
+}
+
+/* Button Styles */
+.modal-content button {
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.modal-content button:hover {
+    background-color: #00cc77; /* Slightly darker accent color */
+}
 .download-button {
     background-color: var(--accent-color);
     color: var(--primary-color);
@@ -593,6 +684,14 @@ footer {
     opacity: 0.7;
     border-top: 1px solid var(--accent-color);
     z-index: 1000;
+}
+
+.reset-button {
+    margin-right: auto; /* Pushes the reset button to the left */
+}
+
+.save-button {
+    margin-left: auto; /* Pushes the save button to the right */
 }
 .settings-option input[type="color"] {
     width: 60px;
@@ -671,12 +770,14 @@ s0.parentNode.insertBefore(s1,s0);
             <h2 data-en="Latest Updates" data-hu="Legfrissebb Frissítések">Latest Updates</h2>
             <div class="news-item">
                 <h3 data-en="🚀 Website Design" data-hu="🚀 Weboldal Tervezés">🚀 Website Design</h3>
-                <p data-en="Fixed color issues" data-hu="Szín problémák kijavítása">Fixed color issues</p>
-                <p data-en="MORE RGB!" data-hu="TÖBB RGB!">MORE RGB!</p>
+                <p data-en="Fixed button backgrounds fading into text" data-hu="Gomb háttérszínének beleolvadása szövegbe olvadásának kijavítása">Fixed button backgrounds fading into text</p>
+                <p data-en="Added custom alert box" data-hu="Saját értesítő doboz létrehozása">Added custom alert box</p>
+
             </div>
             <div class="news-item">
                 <h3 data-en="🔧 New features" data-hu="🔧 Új funkciók">🔧 New features</h3>
-                <p data-en="Added color selector to settings" data-hu="Színválasztó hozzáadva a beállításokhoz">Added color selector to settings</p>
+                <p data-en="Added music selector" data-hu="Zene választék hozzáadása">Added music selector</p>
+                <p data-en="Added settings saving and resetting" data-hu="Beállítások elmentésének és visszaállításának hozzáadása">Added settings saving and resetting</p>
             </div>
             <div class="news-item">
                 <h3 data-en="🔮 Features planned" data-hu="🔮 Tervezett funkciók">🔮 Features planned</h3>
@@ -803,33 +904,46 @@ s0.parentNode.insertBefore(s1,s0);
             </div>
         </div>
     
-        <!-- Settings Tab -->
-        <div id="settings" class="tab-content">
-            <h2 data-en="Settings" data-hu="Beállítások">Settings</h2>
-            <div class="settings-option">
-                <label for="musicVolume" data-en="Music Volume:" data-hu="Zene hangerő:">Music Volume:</label>
-                <input type="range" id="musicVolume" min="0" max="1" step="0.1" value="0.2">
-            </div>
-            <div class="settings-option">
-                <label for="animations" data-en="Enable Animations:" data-hu="Animációk engedélyezése:">Enable Animations:</label>
-                <input type="checkbox" id="animations" checked>
-            </div>
-            <div class="settings-option">
-                <label for="rgbMode" data-en="RGB Color Cycle:" data-hu="RGB Színciklus:">RGB Color Cycle:</label>
-                <input type="checkbox" id="rgbMode">
-            </div>
-            <div class="settings-option">
-                <label for="accentColor" data-en="Accent Color:" data-hu="Kiemelő szín:">Accent Color:</label>
-                <input type="color" id="accentColor" value="#00ff88">
-            </div>
-            <div class="settings-option">
-                <label for="modeSelector" data-en="Select Mode:" data-hu="Válassza ki a módot:">Select Mode:</label>
-                <select id="modeSelector" onchange="changeMode()">
-                    <option value="dark" data-en="Dark Mode" data-hu="Sötét mód">Dark Mode</option>
-                    <option value="light" data-en="Light Mode" data-hu="Világos mód">Light Mode</option>
-                </select>
-            </div>
-        </div>
+<!-- Settings Tab -->
+<div id="settings" class="tab-content">
+    <h2 data-en="Settings" data-hu="Beállítások">Settings</h2>
+    <div class="settings-option">
+        <label for="musicVolume" data-en="Music Volume:" data-hu="Zene hangerő:">Music Volume:</label>
+        <input type="range" id="musicVolume" min="0" max="1" step="0.1" value="0.2">
+    </div>
+    <div class="settings-option">
+        <label for="musicSelector" data-en="Select Music:" data-hu="Zene kiválasztása:">Select Music:</label>
+        <select id="musicSelector">
+            <option value="ethereal.mp3" data-en="Sadness" data-hu="Szomorúság">Sadness</option>
+            <option value="drop.mp3" data-en="Happiness" data-hu="Boldogság">Happiness</option>
+            <option value="mountainking.mp3" data-en="Mountain King" data-hu="Hegyi Király">Mountain King</option>
+            <option value="easteregg.mp3" data-en="Easter Egg" data-hu="Kakukktojás">Easter Egg</option>
+        </select>
+    </div>
+    <div class="settings-option">
+        <label for="animations" data-en="Enable Animations:" data-hu="Animációk engedélyezése:">Enable Animations:</label>
+        <input type="checkbox" id="animations" checked>
+    </div>
+    <div class="settings-option">
+        <label for="rgbMode" data-en="RGB Color Cycle:" data-hu="RGB Színciklus:">RGB Color Cycle:</label>
+        <input type="checkbox" id="rgbMode">
+    </div>
+    <div class="settings-option">
+        <label for="accentColor" data-en="Accent Color:" data-hu="Kiemelő szín:">Accent Color:</label>
+        <input type="color" id="accentColor" value="#00ff88">
+    </div>
+    <div class="settings-option">
+        <label for="modeSelector" data-en="Select Mode:" data-hu="Válassza ki a módot:">Select Mode:</label>
+        <select id="modeSelector" onchange="changeMode()">
+            <option value="dark" data-en="Dark Mode" data-hu="Sötét mód">Dark Mode</option>
+            <option value="light" data-en="Light Mode" data-hu="Világos mód">Light Mode</option>
+        </select>
+    </div>
+    <div class="button-container">
+        <button class="social-button reset-button" onclick="resetSettings()" data-en="Reset Settings" data-hu="Beállítások visszaállítása">Reset Settings</button>
+        <button class="social-button save-button" onclick="saveSettings()" data-en="Save Settings" data-hu="Beállítások mentése">Save Settings</button>
+    </div>
+</div>
     
         <footer>
             <h6 data-en="Copyright © 2025 ETHEREAL. All rights reserved." data-hu="Copyright © 2025 ETHEREAL. Minden jog fenntartva.">Copyright © 2025 ETHEREAL. All rights reserved.</h6>
@@ -1191,6 +1305,23 @@ document.addEventListener('DOMContentLoaded', function() {
     updateBorderColors();
 });
     </script>
+    <script>
+        // Add this to your existing JavaScript
+const musicSelector = document.getElementById('musicSelector');
+const audio = document.getElementById('bgMusic');
+
+musicSelector.addEventListener('change', function() {
+    const selectedMusic = this.value;
+    audio.src = `images/${selectedMusic}`; // Update the audio source
+    audio.play(); // Play the selected music
+});
+
+// Update the volume when the music volume slider changes
+const volumeSlider = document.getElementById('musicVolume');
+volumeSlider.addEventListener('input', function() {
+    audio.volume = this.value; // Set the audio volume
+});
+    </script>
     <style>
         /* Default (Dark Mode) */
 .header-image {
@@ -1201,7 +1332,220 @@ document.addEventListener('DOMContentLoaded', function() {
 body.light-mode .header-image {
     content: url("images/banner2light.png"); /* Alternative image for light mode */
 }
+/* Style for the music selector */
+#musicSelector {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--primary-color);
+    border: 2px solid var(--accent-color);
+    border-radius: 5px;
+    padding: 10px 15px;
+    color: var(--accent-color);
+    font-family: 'Courier New', monospace;
+    font-size: 1em;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#musicSelector:hover {
+    border-color: var(--text-color);
+    box-shadow: 0 0 10px var(--glow-color);
+}
+
+#musicSelector:focus {
+    border-color: var(--text-color);
+    box-shadow: 0 0 10px var(--glow-color);
+}
+
+#musicSelector option {
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    font-family: 'Courier New', monospace;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#musicSelector option:hover {
+    background-color: rgba(0, 255, 136, 0.1);
+}
+
+#musicSelector option:checked {
+    background-color: rgba(0, 255, 136, 0.2);
+}
+
+/* Light mode specific styles for the music selector */
+body.light-mode #musicSelector {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: var(--accent-color);
+}
+
+body.light-mode #musicSelector option {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body.light-mode #musicSelector option:hover {
+    background-color: rgba(0, 255, 136, 0.2);
+}
+
+body.light-mode #musicSelector option:checked {
+    background-color: rgba(0, 255, 136, 0.3);
+}
     </style>
+    <script>
+        function resetSettings() {
+    // Reset Music Volume
+    const musicVolume = document.getElementById('musicVolume');
+    musicVolume.value = 0.2;
+    const audio = document.getElementById('bgMusic');
+    audio.volume = 0.2;
+
+    // Reset Music Selection
+    const musicSelector = document.getElementById('musicSelector');
+    musicSelector.value = 'ethereal.mp3';
+    audio.src = 'images/ethereal.mp3';
+
+    // Reset Animations
+    const animationsToggle = document.getElementById('animations');
+    animationsToggle.checked = true;
+    document.body.classList.remove('no-animations');
+
+    // Reset RGB Mode
+    const rgbCheckbox = document.getElementById('rgbMode');
+    rgbCheckbox.checked = false;
+    if (rgbEnabled) {
+        cancelAnimationFrame(animationFrameId);
+        updateAccentColor(defaultAccent);
+    }
+
+    // Reset Accent Color
+    const colorPicker = document.getElementById('accentColor');
+    colorPicker.value = '#00ff88';
+    updateAccentColor('#00ff88');
+
+    // Reset Mode Selector
+    const modeSelector = document.getElementById('modeSelector');
+    modeSelector.value = 'dark';
+    document.body.classList.remove('light-mode');
+
+    // Update border colors
+    updateBorderColors();
+
+    const selectedLanguage = document.getElementById('languageSelector').value;
+    
+    // Show confirmation message in the selected language
+    if (selectedLanguage === 'en') {
+        showAlert('Settings have been reset.');
+    } else if (selectedLanguage === 'hu') {
+        showAlert('A beállítások vissza lettek állítva.');
+    }
+}
+    </script>
+    <script>
+        function showAlert(message) {
+    document.getElementById('alertMessage').innerText = message;
+    document.getElementById('customAlert').style.display = 'block';
+}
+
+// Close custom alert
+function closeAlert() {
+    document.getElementById('customAlert').style.display = 'none';
+}
+function saveSettings() {
+    // Save Music Volume
+    const musicVolume = document.getElementById('musicVolume').value;
+    localStorage.setItem('musicVolume', musicVolume);
+
+    // Save Music Selection
+    const musicSelector = document.getElementById('musicSelector').value;
+    localStorage.setItem('musicSelector', musicSelector);
+
+    // Save Animations
+    const animationsToggle = document.getElementById('animations').checked;
+    localStorage.setItem('animations', animationsToggle);
+
+    // Save RGB Mode
+    const rgbCheckbox = document.getElementById('rgbMode').checked;
+    localStorage.setItem('rgbMode', rgbCheckbox);
+
+    // Save Accent Color
+    const accentColor = document.getElementById('accentColor').value;
+    localStorage.setItem('accentColor', accentColor);
+
+    // Save Mode Selector
+    const modeSelector = document.getElementById('modeSelector').value;
+    localStorage.setItem('modeSelector', modeSelector);
+
+    // Save Language Selector
+    const languageSelector = document.getElementById('languageSelector').value;
+    localStorage.setItem('languageSelector', languageSelector);
+
+    // Get the selected language
+    const selectedLanguage = languageSelector;
+
+    // Show confirmation message in the selected language
+    if (selectedLanguage === 'en') {
+        showAlert('Settings have been saved.');
+    } else if (selectedLanguage === 'hu') {
+        showAlert('A beállítások el lettek mentve.');
+    }
+}
+document.addEventListener('DOMContentLoaded', function() {
+    // Load saved settings
+    const savedMusicVolume = localStorage.getItem('musicVolume');
+    if (savedMusicVolume) {
+        document.getElementById('musicVolume').value = savedMusicVolume;
+        document.getElementById('bgMusic').volume = savedMusicVolume; // Set audio volume
+    }
+
+    const savedMusicSelector = localStorage.getItem('musicSelector');
+    if (savedMusicSelector) {
+        document.getElementById('musicSelector').value = savedMusicSelector;
+        document.getElementById('bgMusic').src = `images/${savedMusicSelector}`; // Set audio source
+    }
+
+    const savedAnimations = localStorage.getItem('animations');
+    if (savedAnimations !== null) {
+        document.getElementById('animations').checked = savedAnimations === 'true';
+        document.body.classList.toggle('no-animations', !document.getElementById('animations').checked);
+    }
+
+    const savedRgbMode = localStorage.getItem('rgbMode');
+    if (savedRgbMode !== null) {
+        document.getElementById('rgbMode').checked = savedRgbMode === 'true';
+    }
+
+    const savedAccentColor = localStorage.getItem('accentColor');
+    if (savedAccentColor) {
+        document.getElementById('accentColor').value = savedAccentColor;
+        updateAccentColor(savedAccentColor); // Update accent color
+    }
+
+    const savedModeSelector = localStorage.getItem('modeSelector');
+    if (savedModeSelector) {
+        document.getElementById('modeSelector').value = savedModeSelector;
+        changeMode(); // Apply the selected mode
+    }
+
+    // Load saved language
+    const savedLanguage = localStorage.getItem('languageSelector');
+    if (savedLanguage) {
+        document.getElementById('languageSelector').value = savedLanguage;
+        changeLanguage(); // Update the UI to reflect the selected language
+    }
+});
+    </script>
     <div class="volume-popup" id="volumePopup">50%</div>
+    <!-- Custom Alert Modal -->
+<div id="customAlert" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeAlert()">&times;</span>
+        <p id="alertMessage"></p>
+        <button onclick="closeAlert()">OK</button>
+    </div>
+</div>
 </body>
 </html>

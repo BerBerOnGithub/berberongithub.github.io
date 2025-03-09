@@ -68,9 +68,9 @@ body {
 
 .tabs {
     display: flex;
-    gap: 15px; /* Default gap between tabs */
+    gap: 6px; /* Default gap between tabs */
     margin-left: auto;
-    margin-right: 20px; /* Add space between the last tab and the language selector */
+    margin-right: 6px; /* Add space between the last tab and the language selector */
 }
 
 .gallery-container {
@@ -452,6 +452,7 @@ body.light-mode .settings-option {
         padding-right: 0;
         justify-content: center;
         width: 100%;
+        height: 90px;
     }
 
     .tabs {
@@ -712,6 +713,20 @@ footer {
     border: none;
     border-radius: 3px;
 }
+.clock {
+    position: relative; /* Allows it to be positioned relative to the top bar */
+    margin-top: 10px; /* Adjust this value based on the height of your top bar */
+    text-align: center; /* Center the clock text */
+    font-family: 'Courier New', monospace; /* Match the font style */
+    color: var(--accent-color); /* Use the accent color for the text */
+    font-size: 1.5em; /* Adjust the font size as needed */
+    transition: color 0.3s ease; /* Smooth transition for color changes */
+}
+
+/* Light mode specific styles for the clock */
+body.light-mode .clock {
+    color: #000000; /* Dark text for light mode */
+}
 /* @keyframes konamiFlash {
         0% { background: var(--primary-color); }
         50% { background: var(--accent-color); }
@@ -756,6 +771,7 @@ s0.parentNode.insertBefore(s1,s0);
                 <option value="hu" data-en="Hungarian" data-hu="Magyar">Hungarian</option>
             </select>
         </div>
+        <div class="clock" id="clock"></div>
     
         <!-- Home Tab -->
         <div id="home" class="tab-content active">
@@ -770,14 +786,14 @@ s0.parentNode.insertBefore(s1,s0);
             <h2 data-en="Latest Updates" data-hu="Legfrissebb Frissítések">Latest Updates</h2>
             <div class="news-item">
                 <h3 data-en="🚀 Website Design" data-hu="🚀 Weboldal Tervezés">🚀 Website Design</h3>
-                <p data-en="Fixed button backgrounds fading into text" data-hu="Gomb háttérszínének beleolvadása szövegbe olvadásának kijavítása">Fixed button backgrounds fading into text</p>
-                <p data-en="Added custom alert box" data-hu="Saját értesítő doboz létrehozása">Added custom alert box</p>
-
+                <p data-en="Added clock" data-hu="Óra hozzáadása">Added clock</p>
+                <p data-en="Minor design improvements" data-hu="Kisebb dizájn fejlesztés">Minor design improvements</p>
             </div>
             <div class="news-item">
                 <h3 data-en="🔧 New features" data-hu="🔧 Új funkciók">🔧 New features</h3>
-                <p data-en="Added music selector" data-hu="Zene választék hozzáadása">Added music selector</p>
-                <p data-en="Added settings saving and resetting" data-hu="Beállítások elmentésének és visszaállításának hozzáadása">Added settings saving and resetting</p>
+                <p data-en="Added a new joke program" data-hu="Új tréfás program hozzáadása">Added a new joke program</p>
+                <p data-en="Added articles" data-hu="Cikkek hozzáadása">Added articles</p>
+                <p data-en="Added tutorials" data-hu="Segédletek hozzáadása">Added tutorials</p>
             </div>
             <div class="news-item">
                 <h3 data-en="🔮 Features planned" data-hu="🔮 Tervezett funkciók">🔮 Features planned</h3>
@@ -796,12 +812,18 @@ s0.parentNode.insertBefore(s1,s0);
             
             <h3 data-en="🛠 Core Skills" data-hu="🛠 Alapvető készségek">🛠 Core Skills</h3>
             <ul>
-                <li data-en="Windows Batch Scripting" data-hu="Windows Batch Scriptelés">Windows Batch Scripting</li>
+                <li data-en="Windows Batch Scripting" data-hu="Windows Batch Szkriptelés">Windows Batch Scripting</li>
                 <li data-en="VBScript Development" data-hu="VBScript Fejlesztés">VBScript Development</li>
                 <li data-en="Sticking to old UI design" data-hu="Régi UI designhoz ragaszkodás">Sticking to old UI design</li>
                 <li data-en="Useful Utilities" data-hu="Hasznos segédprogramok">Useful Utilities</li>
+                <li data-en="Joke Programs" data-hu="Tréfás Programok">Joke Programs</li>
+                <li data-en="Java Programming" data-hu="Java Programozás">Java Programming</li>
                 <li data-en="Being unbeatable" data-hu="Legyőzhetetlenség">Being unbeatable</li>
             </ul>
+            <h5 data-en="Need help? Visit our help center:" data-hu="Kell segítség? Látogasd meg a segédletünket:">Need help? Visit our help center:</h5>
+            <a href="https://ethereal.tawk.help/" class="download-button" download target="_blank" data-en="Help Center" data-hu="Segédlet">
+                Help Center
+            </a>
         </div>
     
         <!-- Minecraft Tab -->
@@ -827,7 +849,39 @@ s0.parentNode.insertBefore(s1,s0);
                    Note: The WebAssembly version is more recommended, since it's faster than JS, which the other versions use.</p>
             </div>
         </div>
-    
+<!-- HurrDurr Tab -->
+<div id="hurrdurr" class="tab-content">
+    <div class="gallery-container">
+        <div class="fade-text">
+            <h2 data-en="HurrDurr" data-hu="HurrDurr">HurrDurr</h2>
+            <p class="fade-in" data-en="Because, why not?" data-hu="Mert miért ne?">
+                Because, why not?
+            </p>
+            <p class="fade-in" data-en="Opens a moving window with occasional taunting messages." data-hu="Egy mozgó ablakot nyit meg alkalmas gúnyolódó üzenetekkel.">
+                Opens a moving window with occasional taunting messages.
+            </p>
+            <p class="fade-in" data-en="A reference to an old website." data-hu="Egy régi weboldalra utalás.">
+                A reference to an old website.
+            </p>
+        </div>
+        <div class="dimensional-box">
+            <div class="dimensional-inner">
+                <img src="images/hurr-durr-2.gif" alt="HurrDurr Image" class="dimensional-image"> <!-- Replace with your image -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Download Buttons -->
+    <div class="button-container" style="margin-top: 30px; justify-content: center;">
+        <a href="https://drive.google.com/uc?export=download&id=1KV8HQKOndQoEYePW8TZFJ3mVKddm7J3O" class="download-button" download target="_blank" data-en="Download HurrDurr" data-hu="HurrDurr letöltése">
+            Download HurrDurr
+        </a>
+    </div>
+
+    <div>
+        <h6 style="font-family: 'Courier New', Courier, monospace;" data-en="Requirements: Java 8 or newer" data-hu="Követelmények: Java 8 vagy újabb">Requirements: Java 8 or newer</h6>
+    </div>
+</div>
         <!-- Gallery Tab -->
         <div id="gallery" class="tab-content">
             <div class="gallery-container">
@@ -901,6 +955,7 @@ s0.parentNode.insertBefore(s1,s0);
             <div class="button-container">
                 <button class="social-button" onclick="showTab('eagler')" data-en="Minecraft Mirrors" data-hu="Minecraft Tükrök">Minecraft Mirrors</button>
                 <button class="social-button" onclick="showTab('gallery')" data-en="Keygen" data-hu="Keygen">Keygen</button>
+                <button class="social-button" onclick="showTab('hurrdurr')" data-en="HurrDurr" data-hu="HurrDurr">HurrDurr</button>
             </div>
         </div>
     
@@ -1547,5 +1602,42 @@ document.addEventListener('DOMContentLoaded', function() {
         <button onclick="closeAlert()">OK</button>
     </div>
 </div>
+<script>
+    // Function to update the clock
+        function updateClock() {
+    const now = new Date();
+    const selectedLanguage = document.getElementById('languageSelector').value;
+
+    // Define translations for days and months
+    const days = {
+        en: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+        hu: ["Vasárnap", "Hétfő", "Kedd", "Szerda", "Csütörtök", "Péntek", "Szombat"]
+    };
+    const months = {
+        en: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+        hu: ["Január", "Február", "Március", "Április", "Május", "Június", "Július", "Augusztus", "Szeptember", "Október", "November", "December"]
+    };
+
+    // Get the day, month, and year in the selected language
+    const day = days[selectedLanguage][now.getDay()]; // Day of the week
+    const date = now.getDate(); // Day of the month
+    const month = months[selectedLanguage][now.getMonth()]; // Month
+    const year = now.getFullYear(); // Year
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+
+    // Update the clock element
+    const clockElement = document.getElementById('clock');
+    if (clockElement) {
+        clockElement.innerHTML = `${day} / ${month}  ${date} / ${year} <br> ${hours}:${minutes}:${seconds}`;
+    }
+}
+        // Update the clock every second
+        setInterval(updateClock, 1);
+
+        // Initial call to display the clock immediately
+        updateClock();
+</script>
 </body>
 </html>

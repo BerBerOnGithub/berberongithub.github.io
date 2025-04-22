@@ -24,6 +24,8 @@
             align-items: center;
             justify-content: center;
             padding: 20px; /* Added mobile padding */
+            overflow: hidden; /* Prevent scrollbars */
+            position: relative; /* For snowflakes */
         }
 
         .error-container {
@@ -32,6 +34,8 @@
             max-width: 800px;
             width: 100%; /* Full width on mobile */
             box-sizing: border-box; /* Include padding in width */
+            position: relative; /* Ensure it's above the snow */
+            z-index: 1; /* Lower z-index than snowflakes */
         }
 
         .error-container img {
@@ -51,6 +55,7 @@
             margin: 20px auto;
             max-width: 600px;
             width: 90%; /* Better mobile width */
+            overflow: hidden;
         }
 
         .error-code {
@@ -89,6 +94,23 @@
             60% { transform: translate(2px, 2px); }
             80% { transform: translate(2px, -2px); }
             100% { transform: translate(0); }
+        }
+
+        /* Snowflakes */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: #ffffff;
+            font-size: 1em;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear infinite;
+            z-index: 2; /* Higher z-index to overlay everything */
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(100vh); }
         }
 
         /* Mobile-first adjustments */
@@ -157,6 +179,45 @@
     </div>
 
     <script>
+        // Easter egg: snowfall on typing "winter"
+        let inputSequence = '';
+        const easterEggTrigger = 'winter';
+
+        document.addEventListener('keydown', (event) => {
+            inputSequence += event.key.toLowerCase(); // Add the pressed key to the sequence
+            if (inputSequence.length > easterEggTrigger.length) {
+                inputSequence = inputSequence.slice(-easterEggTrigger.length); // Keep only the last N characters
+            }
+            if (inputSequence === easterEggTrigger) {
+                activateSnowfall();
+            alert("Who knew that asterisks could look like snow?!")
+            }
+        });
+
+        // Snowfall effect
+        let snowfallInterval;
+
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '*';
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's'; // Random speed
+            snowflake.style.opacity = Math.random(); // Random opacity
+            snowflake.style.fontSize = Math.random() * 20 + 10 + 'px'; // Random size
+            document.body.appendChild(snowflake);
+
+            // Remove snowflake after it falls
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
+        }
+
+        function activateSnowfall() {
+            if (snowfallInterval) return; // Prevent multiple activations
+            snowfallInterval = setInterval(createSnowflake, 300);
+        }
+
         // Optimized mobile audio handling
         document.addEventListener('DOMContentLoaded', function() {
             const audio = new Audio('images/ethereal.mp3');

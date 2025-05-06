@@ -133,6 +133,82 @@ body {
     border-color: var(--text-color);
     box-shadow: 0 0 10px var(--glow-color) !important; /* Glow effect when focused */
 }
+#fontSelector{
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: var(--primary-color);
+    border: 2px solid var(--accent-color) !important;
+    border-radius: 25px;
+    padding: 10px 20px;
+    color: var(--accent-color) !important;
+    font-family: 'Courier New', monospace;
+    font-size: 1em;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    position: relative;
+    width: 150px;
+    text-align: center;
+}
+/* Hover effect */
+#modeSelector:hover {
+    background-color: rgba(0, 255, 136, 0.1);
+    border-color: var(--text-color);
+    box-shadow: 0 0 10px var(--glow-color) !important;
+}
+
+/* Focus effect */
+#modeSelector:focus {
+    border-color: var(--text-color);
+    box-shadow: 0 0 15px var(--glow-color) !important;
+}
+
+/* Rotate arrow when dropdown is open */
+#modeSelector:focus::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+/* Style the options */
+#fontSelector option {
+    background-color: var(--primary-color);
+    color: var(--accent-color) !important;
+    font-family: 'Courier New', monospace;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#fontSelector option:hover {
+    background-color: rgba(255, 255, 255);
+}
+
+#fontSelector option:checked {
+    background-color: #1a1a1a;
+}
+
+/* Light mode specific styles */
+body.light-mode #fontSelector {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #00ff88;
+}
+
+body.light-mode #fontSelector::after {
+    color: #000000;
+}
+
+body.light-mode #fontSelector option {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body.light-mode #fontSelector option:hover {
+    background-color: rgba(0, 255, 136, 0.2);
+}
+
+body.light-mode #fontSelector option:checked {
+    background-color: rgba(255, 255, 255);
+}
 
 /* Remove default arrow in IE */
 #languageSelector::-ms-expand {
@@ -727,6 +803,46 @@ footer {
 body.light-mode .clock {
     color: #000000; /* Dark text for light mode */
 }
+.font-courier {
+    font-family: 'Courier New', monospace !important;
+}
+
+.font-arial {
+    font-family: 'Arial', sans-serif !important;
+}
+
+.font-times {
+    font-family: 'Times New Roman', serif !important;
+}
+
+.font-verdana {
+    font-family: 'Verdana', sans-serif !important;
+}
+
+.font-georgia {
+    font-family: 'Georgia', serif !important;
+}
+
+.font-comic {
+    font-family: 'Comic Sans MS', cursive !important;
+}
+
+.font-trebuchet {
+    font-family: 'Trebuchet MS', sans-serif !important;
+}
+
+.font-impact {
+    font-family: 'Impact', sans-serif !important;
+}
+
+.font-tahoma {
+    font-family: 'Tahoma', sans-serif !important;
+}
+
+.font-lucida {
+    font-family: 'Lucida Console', monospace !important;
+}
+
 /* @keyframes konamiFlash {
         0% { background: var(--primary-color); }
         50% { background: var(--accent-color); }
@@ -786,11 +902,11 @@ s0.parentNode.insertBefore(s1,s0);
             <h2 data-en="Latest Updates" data-hu="Legfrissebb Frissítések">Latest Updates</h2>
             <div class="news-item">
                 <h3 data-en="🚀 Website Design" data-hu="🚀 Weboldal Tervezés">🚀 Website Design</h3>
-                <p data-en="Currently nothing" data-hu="Jelenleg semmi">Currently nothing</p>
+                <p data-en="Added a font selector (lazily)" data-hu="Betűtípus kiválasztó hozzáadása (bénán)">Added a font selector (lazily)</p>
             </div>
             <div class="news-item">
                 <h3 data-en="🔧 New features" data-hu="🔧 Új funkciók">🔧 New features</h3>
-                <p data-en="Added Minecraft Alpha 1.2.6" data-hu="Minecraft Alfa 1.2.6 hozzáadása">Added Minecraft Alpha 1.2.6</p>
+                <p data-en="Added KeyValidator" data-hu="KeyValidator hozzáadása">Added KeyValidator</p>
             </div>
             <div class="news-item">
                 <h3 data-en="🔮 Features planned" data-hu="🔮 Tervezett funkciók">🔮 Features planned</h3>
@@ -1002,6 +1118,54 @@ s0.parentNode.insertBefore(s1,s0);
                     We are aware of the heavy download being too big. It's due to the many music files integrated into it.</h6>
             </div>
         </div>
+
+        <!-- KeyValidator Tab -->
+<div id="keyvalidator" class="tab-content">
+    <div class="gallery-container">
+        <div class="fade-text">
+            <h2 data-en="Legacy Key Validator" data-hu="Örökölt Kulcs Érvényesítő">Legacy Key Validator</h2>
+            <p class="fade-in" data-en="Validates product keys." 
+               data-hu="Termékkulcsokat érvényesít.">
+               Validates product keys.</p>
+            <p class="fade-in" data-en="Based off older keygen programs." 
+               data-hu="Régi keygen programok alapján.">
+               Based off older keygen programs.</p>
+            <p class="fade-in" data-en="Has multiple different choices of music." 
+               data-hu="Több különböző zenei választási lehetőség van.">
+               Has multiple different choices of music.</p>
+            <p class="fade-in" data-en="Has a separate version for people with low disk space by removing music selection setting." 
+               data-hu="Külön verzió áll rendelkezésre alacsony lemezterületű felhasználók számára a zeneválasztási beállítás eltávolításával.">
+               Has a separate version for people with low disk space by removing music selection setting.</p>
+            <p class="fade-in" data-en="Currently supports the following products:" 
+               data-hu="Jelenleg a következő termékeket támogatja:">
+               Currently supports the following products:</p>
+            <ul>
+                <li class="fade-in" data-en="Windows 95 OEM" data-hu="Windows 95 OEM">Windows 95 OEM</li>
+                <li class="fade-in" data-en="Windows 95 Retail" data-hu="Windows 95 Retail">Windows 95 Retail</li>
+                <li class="fade-in" data-en="Office 95" data-hu="Office 95">Office 95</li>
+                <li class="fade-in" data-en="Office 97" data-hu="Office 97">Office 97</li>
+            </ul>
+        </div>
+        <div class="dimensional-box">
+            <div class="dimensional-inner">
+                <img src="images/keyvalidator.png" alt="KeyValidator" class="dimensional-image">
+            </div>
+        </div>
+    </div>
+                <!-- Download Buttons -->
+                <div class="button-container" style="margin-top: 30px; justify-content: center;">
+                    <a href="https://drive.google.com/uc?export=download&id=1WQanzWHpPysIZyVm4u1wWLnvkqs1mD8x" class="download-button" download target="_blank" data-en="Download Full Version" data-hu="Teljes verzió letöltése">
+                        Download Full Version
+                    </a>
+                    <a href="https://drive.google.com/uc?export=download&id=1H638TJHCVtWk3APwdQcubue4vgxCbwIb" class="download-button" download target="_blank" data-en="Download Lite Version" data-hu="Lite verzió letöltése">
+                        Download Lite Version
+                    </a>
+                </div>
+    <div>
+        <h6 style="font-family: 'Courier New', Courier, monospace;" data-en="Requirements: Java 8 or newer" data-hu="Követelmények: Java 8 vagy újabb">Requirements: Java 8 or newer</h6>
+        <h6 style="font-family: 'Courier New', Courier, monospace;" data-en="We didn't have to change too much of the text. Interesting." data-hu="Nem kellett túl sokat megváltoztatni a szövegből. Érdekes.">We didn't have to change too much of the text. Interesting.</h6>
+    </div>
+</div>
     
         <!-- Contact Tab -->
         <div id="contact" class="tab-content">
@@ -1027,6 +1191,7 @@ s0.parentNode.insertBefore(s1,s0);
                 <button class="social-button" onclick="showTab('hurrdurr')" data-en="HurrDurr" data-hu="HurrDurr">HurrDurr</button>
                 <button class="social-button" onclick="showTab('offiz')" data-en="Offiz" data-hu="Offiz">Offiz</button>
                 <button class="social-button" onclick="showTab('dvdbounce')" data-en="DVDBounce" data-hu="DVDBounce">DVDBounce</button>
+                <button class="social-button" onclick="showTab('keyvalidator')" data-en="KeyValidator" data-hu="KeyValidator">KeyValidator</button>
             </div>
         </div>
     
@@ -1063,6 +1228,22 @@ s0.parentNode.insertBefore(s1,s0);
         <select id="modeSelector" onchange="changeMode()">
             <option value="dark" data-en="Dark Mode" data-hu="Sötét mód">Dark Mode</option>
             <option value="light" data-en="Light Mode" data-hu="Világos mód">Light Mode</option>
+        </select>
+    </div>
+    <div class="settings-option">
+        <label for="fontSelector" data-en="Select Font:" data-hu="Betűtípus kiválasztása:">Select Font:</label>
+        <select id="fontSelector" onchange="changeFont()">
+            <option value="default" selected>Default</option> <!-- Default option -->
+            <option value="Courier New">Courier New</option>
+            <option value="Arial">Arial</option>
+            <option value="Times New Roman">Times New Roman</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Georgia">Georgia</option>
+            <option value="Comic Sans MS">Comic Sans MS</option>
+            <option value="Trebuchet MS">Trebuchet MS</option>
+            <option value="Impact">Impact</option>
+            <option value="Tahoma">Tahoma</option>
+            <option value="Lucida Console">Lucida Console</option>
         </select>
     </div>
     <div class="button-container">
@@ -1709,6 +1890,28 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Initial call to display the clock immediately
         updateClock();
+</script>
+
+<script>
+                    function changeFont() {
+            const selectedFont = document.getElementById('fontSelector').value;
+            // Select all elements that can contain text
+            const textElements = document.querySelectorAll('*'); // Select all elements
+            if (selectedFont === 'default') {
+                // Reset to default font by removing inline styles
+                textElements.forEach(element => {
+                    element.style.fontFamily = ''; // Remove inline font family
+                });
+            } else {
+                // Apply the selected font to each text element
+                textElements.forEach(element => {
+                    // Check if the element has text content
+                    if (element.childNodes.length > 0) {
+                        element.style.fontFamily = selectedFont; // Set the font family directly
+                    }
+                });
+            }
+        }
 </script>
 </body>
 </html>
